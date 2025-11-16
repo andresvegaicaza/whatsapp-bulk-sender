@@ -10,18 +10,54 @@ import pywhatkit
 # Carpeta del proyecto (donde están customers.xlsx y promo.jpg)
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
+# Preguntar al usuario el archivo Excel a usar
+default_excel = "customers.xlsx"
+print(f"\n📄 Archivo Excel por defecto: {default_excel}")
+
+user_file = input("Ingresa el nombre del archivo Excel (ENTER para usar el predeterminado): ").strip()
+
+if user_file == "":
+    user_file = default_excel
+
+# Ruta final del archivo
+EXCEL_FILE = os.path.join(BASE_PATH, user_file)
+
+# Validación del archivo
+while not os.path.isfile(EXCEL_FILE):
+    print(f"❌ No se encontró el archivo: {EXCEL_FILE}")
+    user_file = input("Por favor ingresa un nombre de archivo válido: ").strip()
+    EXCEL_FILE = os.path.join(BASE_PATH, user_file)
+
+print(f"✅ Usando archivo Excel: {EXCEL_FILE}\n")
+
+SHEET_NAME = "customers"
+
 # Archivos de entrada / salida
-EXCEL_FILE = os.path.join(BASE_PATH, "customers.xlsx")
+#EXCEL_FILE = os.path.join(BASE_PATH, "customers.xlsx")
 SHEET_NAME = "customers"
 
 IMAGE_FILE = os.path.join(BASE_PATH, "promo.jpg")
 OUTPUT_FILE = os.path.join(BASE_PATH, "customers_updated.xlsx")
 
-# Nombre de la empresa para personalizar el mensaje
-COMPANY_NAME = "Mi Empresa"
+# Prompt para el nombre de la empresa
+default_company = "Mi Empresa"
+user_company = input(f"\n🏢 Ingresa el nombre de la empresa (ENTER para '{default_company}'): ").strip()
+COMPANY_NAME = user_company if user_company else default_company
 
-# Tiempo entre envíos (segundos)
-SEND_DELAY_SECONDS = 25
+print(f"✅ Usando nombre de empresa: {COMPANY_NAME}")
+
+
+# Prompt para tiempo de espera entre envíos
+default_delay = 25
+delay_input = input(f"\n⏱️ Ingresa el delay entre envíos en segundos (ENTER para {default_delay}): ").strip()
+
+if delay_input.isdigit():
+    SEND_DELAY_SECONDS = int(delay_input)
+else:
+    SEND_DELAY_SECONDS = default_delay
+
+print(f"⏳ Delay configurado en: {SEND_DELAY_SECONDS} segundos\n")
+
 
 # Si True, añade una nota de que es mensaje de prueba
 TEST_MODE = True

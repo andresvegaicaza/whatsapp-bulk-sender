@@ -1,69 +1,107 @@
-# WhatsApp Bulk Sender  
-**Automated personalized WhatsApp message sender using Python, Excel, and PyWhatKit**
+# WhatsApp Bulk Sender (Python + Excel + PyWhatKit)
 
-This project allows you to send **personalized WhatsApp messages with optional images** to large lists of customers stored in an Excel file, while safely tracking which messages were already sent.  
-It automates **WhatsApp Web** using PyWhatKit and requires **CopyQ** for reliable clipboard operations on macOS and Linux.
+## 🛠 Environment Setup
 
----
-
-## 🚀 Features
-
-- Reads customer data from an Excel file (`customers.xlsx`)
-- Builds fully personalized messages based on attributes in the database
-- Sends WhatsApp messages **with an image attachment** via WhatsApp Web
-- Automatically updates the Excel file (`SentFlag = 1`) so you don’t resend messages
-- Safe to re-run multiple times
-- Works for:
-  - Marketing campaigns  
-  - Promotions  
-  - Reminders  
-  - Event invites  
-  - Save-the-dates  
-  - General notifications  
-- Fully configurable and extensible
+This project runs on Python 3 and automates WhatsApp Web.  
+Below are the setup instructions for **macOS**, **Linux**, and **Windows**.
 
 ---
 
-## 📁 Project Structure
+### 1️⃣ Common Requirements (All Platforms)
 
-
----
-
-## 🧪 Example Excel Input (`customers.xlsx`)
-
-Your Excel file must contain:
-
-| Column         | Description                                  |
-|----------------|----------------------------------------------|
-| `Phone`        | Customer phone number                        |
-| `Name`         | Customer name                                |
-| `City`         | Customer city (optional)                     |
-| `Segment`      | Customer segment (optional)                  |
-| `MessageLabel` | Personalized label (optional)                |
-| `SendFlag`     | `1` = send, `0` = skip                       |
-| `SentFlag`     | `1` = already sent, `0` = not sent yet       |
-
-### ✔ Example row:
-
-| Phone         | Name   | City | Segment | MessageLabel      | SendFlag | SentFlag |
-|---------------|--------|------|---------|--------------------|----------|----------|
-| 5215555555555 | Laura  | CDMX | Premium | Laura y familia    | 1        | 0        |
-
-Only customers where:
-
-
-will receive messages.
+- Python **3.8+** (recommended: 3.10+)
+- pip (Python package manager)
+- Git
+- Google Chrome (recommended browser)
+- Active WhatsApp Web session:
+  - https://web.whatsapp.com
+  - Stay logged in during execution
 
 ---
 
-## 🧠 How the message is personalized
+### 2️⃣ macOS Setup
 
-The script uses:
+#### Install Homebrew (if not installed)
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-- `MessageLabel` → If present, used as greeting  
-- otherwise falls back to `Name`  
-- inserts `City` and `Segment` when available  
-- includes **TEST MODE** label if enabled  
+#### Install Python and Git
+```
+brew install python git
+```
 
-### ✔ Example generated message:
+#### Install CopyQ (REQUIRED)
+PyWhatKit uses the clipboard to paste messages.  
+macOS requires **CopyQ**:
+```
+brew install --cask copyq
+open -a CopyQ
+```
 
+#### Create virtual environment
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+---
+
+### 3️⃣ Linux Setup (Debian/Ubuntu)
+
+#### Install Python, pip, Git
+```
+sudo apt update
+sudo apt install -y python3 python3-pip git
+```
+
+#### Install CopyQ (REQUIRED)
+```
+sudo apt install -y copyq
+copyq --version
+copyq &
+```
+
+#### Create virtual environment
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+---
+
+### 4️⃣ Windows Setup
+
+#### Install Python and Git
+Download:
+- Python: https://www.python.org/downloads/
+- Git for Windows: https://git-scm.com/download/win
+
+Verify:
+```
+python --version
+git --version
+```
+
+#### CopyQ (OPTIONAL)
+Windows has native clipboard support → CopyQ not required.
+
+#### Create virtual environment
+```
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+---
+
+### 5️⃣ Final Checklist Before Running
+
+- Virtual environment activated  
+- Dependencies installed  
+- `customers.xlsx` and `promo.jpg` present  
+- WhatsApp Web open and logged in  
+- On macOS/Linux: **CopyQ running**  
+- Do **not** use keyboard/mouse during message sending  
