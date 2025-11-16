@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environment
+venv/
+
+# macOS
+.DS_Store
+
+# Local files
+*.log
+
+# Excel outputs
+*con_envios.xlsx
+
