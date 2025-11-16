@@ -17,3 +17,6 @@ venv/
 # Excel outputs
 *con_envios.xlsx
 
+# Archivos de prueba
+test_numbers.xlsx
+
